@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version tag of llama-cpp-python to build: v0.2.14'
-        default: 'v0.2.14'
+        description: 'Version tag of llama-cpp-python to build: v0.2.84'
+        default: 'v0.2.84'
         required: true
         type: string
       config:
@@ -21,8 +21,8 @@ on:
   workflow_call:
     inputs:
       version:
-        description: 'Version tag of llama-cpp-python to build: v0.2.14'
-        default: 'v0.2.14'
+        description: 'Version tag of llama-cpp-python to build: v0.2.84'
+        default: 'v0.2.84'
         required: true
         type: string
       config:
@@ -57,10 +57,10 @@ jobs:
         id: set-matrix
         run: |
           $matrix = @{
-              'os' = 'ubuntu-20.04', 'windows-2019'
-              'pyver' = "3.11", "3.10"
-              'cuda' = "11.8.0", "12.1.1"
-              'avxver' = "AVX2", "AVX"
+              'os' = 'ubuntu-20.04'
+              'pyver' = "3.10"
+              'cuda' = "12.1.1"
+              'avxver' = "basic"
           }
           
           if ($env:CONFIGIN -ne 'Default') {$env:CONFIGIN.split(';').foreach({$matrix[$_.split(':')[0]] = $_.split(':')[1].split(',')})}
