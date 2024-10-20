@@ -59,7 +59,7 @@ jobs:
           $matrix = @{
               'os' = 'ubuntu-20.04', 'windows-2019'
               'pyver' = "3.10", "3.11"
-              # 'rocm' = '5.6.1'
+              # 'rocm' = '6.1.2'
               'avx' = "AVX", "AVX2"
               'rename' = '0', '1'
               'exclude' = @(
@@ -67,7 +67,7 @@ jobs:
                   # @{'os' = 'windows-2019'},
                   # @{'os' = 'windows-2019';'rocm' = '5.4.2'},
                   # @{'os' = 'windows-2019';'rocm' = '5.5'},
-                  # @{'os' = 'windows-2019';'rocm' = '5.6.1'},
+                  # @{'os' = 'windows-2019';'rocm' = '6.1.2'},
                   # @{'os' = 'ubuntu-20.04';'rocm' = '5.5.1'}
               )
           }
@@ -95,7 +95,7 @@ jobs:
     env:
       PCKGVER: ${{ inputs.version }}
       # ROCM_VERSION: ${{ matrix.rocm }}
-      ROCM_VERSION: '5.6.1'
+      ROCM_VERSION: '6.1.2'
       AVXVER: ${{ matrix.avx }}
 
     steps:
@@ -180,7 +180,7 @@ jobs:
                 $content = Get-Content $_ -raw
                 $content = $content -replace '(?m)^import llama_cpp\.', 'from . import '
                 $content = $content -replace '(?m)^from llama_cpp\.', 'from .'
-                $content = $content -replace '(?m)^import llama_cpp$', 'import llama_cpp_cuda as llama_cpp'
+                $content = $content -replace '(?m)^(\s*)import llama_cpp(\s*)$', '${1}import llama_cpp_cuda as llama_cpp${2}'
                 $content | Set-Content $_ -NoNewline
             })
           }
